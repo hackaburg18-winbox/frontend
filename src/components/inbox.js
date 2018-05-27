@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from './card';
 import Grid from '@material-ui/core/Grid';
-import Paper from "@material-ui/core/es/Paper/Paper";
 
-const DATALIST_REST_URL = 'test:123/wow';
+const DATALIST_REST_URL = 'webdis-service:7379/hgetall/dashboard';
 
 const styles = theme => ({
     root: {
@@ -35,26 +34,26 @@ class Inbox extends React.Component {
     }
 
     tick() {
-        this.state.dataList.push({"author":"Google <no-reply@accounts.google.com>",
-            "title":"Google APIs Explorer connected to your Google Account",
-            "text":"test123" + Math.random(),
-            "timestamp":"1527340143000"});
+        // this.state.dataList.push({"author":"Google <no-reply@accounts.google.com>",
+        //     "title":"Google APIs Explorer connected to your Google Account",
+        //     "text":"test123" + Math.random(),
+        //     "timestamp":"1527340143000"});
 
         this.setState({
             dataList: this.state.dataList
         });
 
-        // var xhttp = new XMLHttpRequest();
-        // xhttp.onreadystatechange = function() {
-        //     if (this.readyState == 4 && this.status == 200) {
-        //         console.log(this.responseText);
-        //         this.setState({
-        //             dataList: JSON.parse(this.responseText)
-        //         });
-        //     }
-        // };
-        // xhttp.open("GET", DATALIST_REST_URL, true);
-        // xhttp.send();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                this.setState({
+                    dataList: JSON.parse(this.responseText)
+                });
+            }
+        };
+        xhttp.open("GET", DATALIST_REST_URL, true);
+        xhttp.send();
 
     }
 
